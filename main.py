@@ -11,11 +11,6 @@ from webapp2_extras import sessions
 from Crypto.Hash import SHA256
 
 
-intentos = 2
-perdidas = 0
-ganadas = 0
-usuario = ""
-psw = ""
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
@@ -48,8 +43,6 @@ class Handler(webapp2.RequestHandler):
 class Cuentas(ndb.Model):
     username = ndb.StringProperty()
     password = ndb.StringProperty()
-    win = ndb.StringProperty()
-    lose = ndb.StringProperty()
 
 class Login(Handler):
     def get(self):
@@ -75,7 +68,7 @@ class Login(Handler):
                 template_values={
                     'username': self.session['username']
                 }
-                self.render("Bienvenida.html", user = template_values)
+                self.render("principal.html", user = template_values)
                 
             else:
                 logging.info('POST consulta=' + str(consulta))
@@ -114,59 +107,7 @@ class JugarPage(Handler):
     def get(self):
         self.render("juego1.html", intentos = intentos)
     def post(self):
-        global intentos
-        global ganadas 
-        global perdidas 
-        global usuario
-        global psw
-        if intentos > 0:
-            opcion1 = self.request.get('opcionT')
-            opcion1 = opcion1.lower()
-            lista = ['piedra','tijera','papel']
-            opcion2 = random.choice(lista)
-            if opcion1 == opcion2:
-                resultado = "Empate"
-                intentos = intentos - 1
-            elif (opcion1 == "piedra") and (opcion2 == "tijera"):
-                resultado = "Piedra Gana Tijera, Ganaste..!"
-                ganadas += 1
-            elif (opcion2 == "piedra") and (opcion1 == "tijera"):
-                resultado = "Piedra Gana Tijera, Perdiste. :("
-                perdidas += 1
-                intentos = intentos - 1
-            elif (opcion1 == "piedra") and (opcion2 == "papel"):
-                resultado = "Papel gana Piedra, Perdiste. :("
-                perdidas += 1
-                intentos = intentos - 1
-            elif (opcion2 == "piedra") and (opcion1 == "papel"):
-                resultado = "Papel gana piedra, Ganaste..!"
-                ganadas += 1
-            elif (opcion1 == "papel") and (opcion2 == "tijera"):
-                resultado = "Tijera gana Papel, Perdiste. :("
-                perdidas += 1
-                intentos = intentos - 1
-            elif (opcion2 == "papel") and (opcion1 == "tijera"):
-                resultado = "Tijera gana Papel, Ganaste..!"
-                ganadas += 1
-            else:
-                resultado = "opcion invalida"
-            consulta = Cuentas.query(ndb.AND(Cuentas.username==usuario,
-                        Cuentas.password==psw)).get()
-            if ganadas > 0:
-                if consulta is not None:
-                    consulta.win = consulta.win + 1
-                    consulta.put()
-                    ganadas = 0
-            if perdidas > 0:
-                if consulta is not None:
-                    consulta.lose = consulta.lose + 1
-                    consulta.put()
-                    perdidas = 0
-            
-            self.render('juego1.html', resultado = resultado, intentos = intentos+1)
-        elif intentos == 0:
-            self.render("index.html")
-            intentos = 2
+        print "algo"
 
         
             
