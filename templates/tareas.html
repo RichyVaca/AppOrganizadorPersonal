@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/bootstrap-grid.css">
+  <link rel="stylesheet" href="../static/css/bootstrap-reboot.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <title>Tareas</title>
+</head>
+<body class="bodyp">
+  <form action="/click_registrarTarea" method="POST">
+    <center>
+      <h1 class="display-4 jumbotron">Tareas</h1>
+    </center>
+      <br>
+      <br>
+      <div class="form-group">
+        <label class="h2">Tarea:</label>
+        <center><input type="text" name="nombreTarea" class="form-control"></center>
+      </div>
+      <div class="form-group">
+        <label class="h2">Notas</label>
+        <center><textarea name="nota" class="form-control" rows="5"></textarea></center>
+      </div>
+    
+    <center>
+      <input type="submit" class="btn btn-primary" value="Registrar Tarea" onclick="alert('¡Tarea registrada')">
+    </center>
+  </form>
+
+  
+</body>
+</html>

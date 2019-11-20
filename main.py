@@ -10,7 +10,8 @@ from google.appengine.ext import ndb
 from webapp2_extras import sessions
 from Crypto.Hash import SHA256
 
-
+usuario = ''
+psw = ''
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
@@ -43,6 +44,10 @@ class Handler(webapp2.RequestHandler):
 class Cuentas(ndb.Model):
     username = ndb.StringProperty()
     password = ndb.StringProperty()
+
+class Tareas(ndb.Model):
+    tarea = ndb.StringProperty()
+    nota = ndb.StringProperty()
 
 class Login(Handler):
     def get(self):
@@ -80,6 +85,8 @@ class Registro(Handler):
     def get(self):
         self.render("registro.html")
     def post(self):
+        global usuario
+        global psw
         usuario = self.request.get('username')
         psw = self.request.get('password')
         psw = SHA256.new(psw).hexdigest()
@@ -103,11 +110,21 @@ class Logout(Handler):
             self.render("index.html", error = msg)
             del self.session['username']
 
-class JugarPage(Handler):
+class TareasP(Handler):
     def get(self):
-        self.render("juego1.html", intentos = intentos)
+        self.render("tareas.html")
     def post(self):
-        print "algo"
+        tarea = self.request.get('nombreTarea')
+        nota = self.request.get('nota')
+        consulta = Tareas.query(ndb.AND(Tareas.tarea==tarea, Tareas.nota==nota)).get()
+        if consulta is not None:
+            consulta.tarea = tarea
+            consulta.nota = nota
+            consulta.put()
+            tarea = ''
+            nota = ''
+        self.redirect("/")
+
 
         
             
@@ -119,8 +136,8 @@ config['webapp2_extras.sessions'] = {
 
 app = webapp2.WSGIApplication([('/', Login),
                                ('/click_login',Login),
-                               ('/click_jugar',JugarPage),
-                               ('/click_dale',JugarPage),
+                               ('/click_tareas',TareasP),
+                               ('/click_registrarTarea',TareasP),
                                ('/click_salir',Logout),
                                ('/click_registro',Registro)
 

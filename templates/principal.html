@@ -11,7 +11,24 @@
   <title>Organizador</title>
 </head>
 <body class="bodyp">
-  <center><h1 class="display-3">Menu</h1></center>
+  <center><h1 class="display-4 jumbotron">Menu</h1>
+    <table>
+      <div class="container btn-group btn-group-lg">
+        <form action="/click_eventos" method="get">
+          <button class="btn btn-primary" id="posicion">GESTIONAR EVENTOS</button>      
+        </form>
+        <form action="/click_agenda" method="get">
+          <button class="btn btn-primary"">AGENDA</button>     
+        </form>
+        <form action="/click_tareas" method="get">
+          <button class="btn btn-primary"">TAREAS</button>
+        </form>
+        <form action="/click_contactos" method="get">
+          <button class="btn btn-primary"">LIBRETA DE CONTACTOS</button>
+        </form>
+      </div>
+    </table>
+  </center>
   
 </body>
 </html>
