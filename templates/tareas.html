@@ -29,6 +29,24 @@
     <center>
       <input type="submit" class="btn btn-primary" value="Registrar Tarea" onclick="alert('¡Tarea registrada')">
     </center>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Nota</th>
+          </tr>
+          <tbody>
+            <tr>
+              {% for tarea in lista %}
+              <td>{{tarea.title}}</td>
+              <td>{{tarea.description</td>
+              {% endfor %}
+            </tr>
+          </tbody>
+        </thead>
+      </table>
+    </div>
   </form>
 
   

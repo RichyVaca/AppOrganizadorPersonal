@@ -12,6 +12,7 @@ from Crypto.Hash import SHA256
 
 usuario = ''
 psw = ''
+consulta = '' 
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
@@ -41,13 +42,15 @@ class Handler(webapp2.RequestHandler):
     def write(self,*a,**kw):
         self.response.out.write(*a,**kw)
 
+
+class Tareas(ndb.Model):
+    title = ndb.StringProperty()
+    description = ndb.StringProperty()
+
 class Cuentas(ndb.Model):
     username = ndb.StringProperty()
     password = ndb.StringProperty()
-
-class Tareas(ndb.Model):
-    tarea = ndb.StringProperty()
-    nota = ndb.StringProperty()
+    tarea = ndb.StructuredProperty(Tareas, repeated=True)
 
 class Login(Handler):
     def get(self):
@@ -112,18 +115,25 @@ class Logout(Handler):
 
 class TareasP(Handler):
     def get(self):
-        self.render("tareas.html")
+        global consulta
+        consulta=Cuentas.query(ndb.AND(Cuentas.username==usuario, Cuentas.password==psw )).get()
+        listaTareas = []
+        for i in consulta.tarea:
+            listaTareas.append(i)
+        self.render("tareas.html", lista = listaTareas)
     def post(self):
-        tarea = self.request.get('nombreTarea')
-        nota = self.request.get('nota')
-        consulta = Tareas.query(ndb.AND(Tareas.tarea==tarea, Tareas.nota==nota)).get()
+        global consulta
+        title = self.request.get('nombreTarea')
+        description = self.request.get('nota')
+        consulta=Cuentas.query(ndb.AND(Cuentas.username==usuario, Cuentas.password==psw )).get()
         if consulta is not None:
-            consulta.tarea = tarea
-            consulta.nota = nota
+            nueva_tarea=Tareas(title = title, description = description)
+            consulta.tarea.append(nueva_tarea)
             consulta.put()
-            tarea = ''
-            nota = ''
-        self.redirect("/")
+            listaTareas = []
+            for i in consulta.tarea:
+                listaTareas.append(i)
+            self.render("tareas.html", lista = listaTareas)
 
 
         
