@@ -11,7 +11,7 @@
   <title>Tareas</title>
 </head>
 <body class="bodyp">
-  <form action="/click_registrarTarea" method="POST">
+  <form action="/click_registrarTarea" method="post">
     <center>
       <h1 class="display-4 jumbotron">Tareas</h1>
     </center>
@@ -29,6 +29,9 @@
     <center>
       <input type="submit" class="btn btn-primary" value="Registrar Tarea" onclick="alert('¡Tarea registrada')">
     </center>
+    <br>
+    <br>
+    
     <div class="container">
       <table class="table">
         <thead>
@@ -37,12 +40,12 @@
             <th>Nota</th>
           </tr>
           <tbody>
+            {% for tarea in lista %}
             <tr>
-              {% for tarea in lista %}
               <td>{{tarea.title}}</td>
-              <td>{{tarea.description</td>
-              {% endfor %}
+              <td>{{tarea.description}}</td>
             </tr>
+            {% endfor %}
           </tbody>
         </thead>
       </table>
