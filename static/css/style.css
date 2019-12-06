@@ -39,3 +39,10 @@ body.bodyp{
   margin-top: 2rem;
   margin-bottom: 4rem;
   background-image: url("../img/cool-background\(3\).png");
+}
+.btnlogOut{
+  size: 23px;
+}
+.btnMenu{
+  size: 23px;
+}

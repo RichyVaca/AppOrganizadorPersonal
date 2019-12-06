@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/bootstrap-grid.css">
+  <link rel="stylesheet" href="../static/css/bootstrap-reboot.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <title>Contactos</title>
+</head>
+<body class="bodyp">
+  <div>
+    <div class="row">
+      <div class="col">
+        <form action="/click_menu" method="post">
+          <input type="submit" value="Menu Principal" class="btn btn-warning btnMenu btn-lg">
+        </form>
+      </div>
+      <div class="col-9">
+        
+      </div>
+      <div class="col">
+        <form action="/click_logout" method="get">
+          <input type="submit" value="Salir" class="btn btn-danger btnlogOut btn-lg">
+        </form>
+      </div>
+    </div>
+  </div>
+    <form action="/click_contactos" method="post">
+    <center>
+      <h1 class="display-4 jumbotron">Agenda</h1>
+    </center>
+    <br>
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <input type="hidden" name="idContacto" class="form-control" value="{{idEvento}}">
+          <label class="h2" name="">Nombre:</label>
+          <input type="text" name="name" class="form-control" value="{{name}}" required>
+          <br>
+          <label class="h2" name="">Fecha de nacimiento:</label>
+          <input type="date" name="fechaNacimiento" class="form-control" value="{{fechaNacimiento}}" required>
+          <br>
+          <label class="h2" name="">Correo Electronico:</label>
+          <input type="email" name="email" class="form-control" value="{{email}}" placeholder="example@contacto.com" required>
+        </div>
+        <div class="col-sm">
+          <label class="h2" name="">Telefono:</label>
+          <input type="text" name="phone" class="form-control" value="{{phone}}" required>
+          <label class="h2" name="">Domicilio:</label>
+          <input type="text" name="address" class="form-control" value="{{address}}" placeholder="Calle-Numero-Colonia" required>
+        </div>
+      </div>
+    </div>
+    <br>
+    <center>
+      <input type="submit" class="btn btn-primary" value="Guardar Contacto" onclick="alert('¡Contacto Registrado')">
+    </center>
+  </form>
+  <br>
+  <div class="container">
+      <table class="table tablaTareas">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Telefono</th>
+            <th>Fecha Nac</th>
+            <th>Domicilio</th>
+            <th>Correo</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tbody>
+            {% for contacto in lista %}
+            <tr>
+              <form action="/click_modificarCon" method="POST">
+              <input type="hidden" name="idContacto_input" value="{{contacto.idContacto}}">
+              <td><input type="hidden" name="name_input" value="{{contacto.name}}"> {{contacto.name}}</td>
+              <td><input type="hidden" name="phone_input" value="{{contacto.phone}}"> {{contacto.phone}}</td>
+              <td><input type="hidden" name="fechaNacimiento_input" value="{{contacto.fechaNacimiento}}">{{contacto.fechaNacimiento}}</td>
+              <td><input type="hidden" name="address_input" value="{{contacto.address}}">{{contacto.address}}</td>
+              <td><input type="hidden" name="email_input" value="{{contacto.email}}">{{contacto.email}}</td>
+              <td><input type="submit" name="modificar" value="Modificar" class="btn btn-primary"></td>
+              <td><input type="submit" name="eliminar" value="Eliminar" class="btn btn-danger"></td>
+              </form>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </thead>
+      </table>
+    </div>
+  
+</body>
+</html>

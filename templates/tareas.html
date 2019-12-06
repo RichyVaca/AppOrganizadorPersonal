@@ -11,6 +11,24 @@
   <title>Tareas</title>
 </head>
 <body class="bodyp">
+  <!--<input type="submit" onclick="locate.href = '/click_login'" value="Regresar" class="btn btn-danger">-->
+  <div>
+    <div class="row">
+      <div class="col">
+        <form action="/click_menu" method="post">
+          <input type="submit" value="Menu Principal" class="btn btn-warning btnMenu btn-lg">
+        </form>
+      </div>
+      <div class="col-9">
+        
+      </div>
+      <div class="col">
+        <form action="/click_logout" method="get">
+          <input type="submit" value="Salir" class="btn btn-danger btnlogOut btn-lg">
+        </form>
+      </div>
+    </div>
+  </div>
   <form action="/click_registrarTarea" method="post">
     <center>
       <h1 class="display-4 jumbotron">Tareas</h1>
@@ -19,39 +37,44 @@
       <br>
       <div class="form-group">
         <label class="h2">Tarea:</label>
-        <center><input type="text" name="nombreTarea" class="form-control"></center>
+        <input type="hidden" name="idTarea" value="{{idTarea}}" >
+        <center><input required type="text" name="nombreTarea" class="form-control" value="{{title}}" required></center>
       </div>
       <div class="form-group">
         <label class="h2">Notas</label>
-        <center><textarea name="nota" class="form-control" rows="5"></textarea></center>
+        <center><textarea required name="nota" class="form-control" rows="5" required>{{description}}</textarea></center>
       </div>
-    
     <center>
-      <input type="submit" class="btn btn-primary" value="Registrar Tarea" onclick="alert('¡Tarea registrada')">
+      <input type="submit" class="btn btn-primary" value="Guardar Tarea" onclick="alert('¡Tarea registrada')">
     </center>
     <br>
     <br>
-    
-    <div class="container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Titulo</th>
-            <th>Nota</th>
-          </tr>
-          <tbody>
-            {% for tarea in lista %}
-            <tr>
-              <td>{{tarea.title}}</td>
-              <td>{{tarea.description}}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </thead>
-      </table>
-    </div>
   </form>
-
-  
+  <div class="container">
+    <table class="table tablaTareas">
+      <thead>
+        <tr>
+          <th>Titulo</th>
+          <th>Nota</th>
+          <th> </th>
+          <th> </th>
+        </tr>
+        
+        <tbody>
+          {% for tarea in lista %}
+          <tr>
+            <form action="/click_modificar" method="POST">
+            <input type="hidden" name="idTarea_input" value="{{tarea.idTarea}}">
+            <td name="title_input"><input type="hidden" name="title_input" value="{{tarea.title}}"> {{tarea.title}}</td>
+            <td name="description_input"><input type="hidden" name="description_input" value="{{tarea.description}}">{{tarea.description}}</td>
+            <td><input type="submit" name="modificar" value="Modificar" class="btn btn-primary"></td>
+            <td><input type="submit" name="eliminar" value="Eliminar" class="btn btn-danger"></td>
+            </form>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </thead>
+    </table>
+  </div>
 </body>
 </html>

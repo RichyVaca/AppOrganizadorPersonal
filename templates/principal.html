@@ -10,15 +10,28 @@
   <link rel="stylesheet" href="../static/css/style.css">
   <title>Organizador</title>
 </head>
+
 <body class="bodyp">
+  <div>
+      <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col-9">
+          
+        </div>
+        <div class="col">
+          <form action="/click_logout">
+            <input type="submit" value="Salir" class="btn btn-danger btnlogOut btn-lg">
+          </form>
+        </div>
+      </div>
+    </div>
   <center><h1 class="display-4 jumbotron">Menu</h1>
     <table>
       <div class="container btn-group btn-group-lg">
         <form action="/click_eventos" method="get">
-          <button class="btn btn-primary" id="posicion">GESTIONAR EVENTOS</button>      
-        </form>
-        <form action="/click_agenda" method="get">
-          <button class="btn btn-primary"">AGENDA</button>     
+          <button class="btn btn-primary" id="posicion">EVENTOS</button>      
         </form>
         <form action="/click_tareas" method="get">
           <button class="btn btn-primary"">TAREAS</button>

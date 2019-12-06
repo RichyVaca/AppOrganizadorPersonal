@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/bootstrap-grid.css">
+  <link rel="stylesheet" href="../static/css/bootstrap-reboot.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <title>Eventos</title>
+</head>
+<body class="bodyp">
+  <div>
+    <div class="row">
+      <div class="col">
+        <form action="/click_menu" method="post">
+          <input type="submit" value="Menu Principal" class="btn btn-warning btnMenu btn-lg">
+        </form>
+      </div>
+      <div class="col-9">
+        
+      </div>
+      <div class="col">
+        <form action="/click_logout" method="get">
+          <input type="submit" value="Salir" class="btn btn-danger btnlogOut btn-lg">
+        </form>
+      </div>
+    </div>
+  </div>
+  <form action="/click_eventos" method="post">
+    <center>
+      <h1 class="display-4 jumbotron">Eventos</h1>
+  </center>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <input type="hidden" name="idEvento" class="form-control" value="{{idEvento}}">
+        <label class="h2" name="name">Nombre del evento:</label>
+        <input type="text" name="titleEvento" class="form-control" value="{{titleEvento}}" required>
+        <br>
+        <label class="h2" name="name">Fecha Inicio:</label>
+        <input type="date" name="fechaI" class="form-control" value="{{fechaInicio}}" required>
+        <br>
+        <label class="h2" name="name">Fecha Fin:</label>
+        <input type="date" name="fechaF" class="form-control" value="{{fechaFin}}" required>
+      </div>
+      <div class="col-sm">
+        <label class="h2" name="name">Descripción:</label>
+        <textarea name="descriptionEvento" class="form-control" rows="8" required>{{descrptionEvento}}</textarea>
+      </div>
+    </div>
+  </div>
+  <br>
+  <center>
+    <input type="submit" class="btn btn-primary" value="Guardar Evento" onclick="alert('¡Evento registrado')">
+  </center>
+</form>
+  <br>
+  <div class="container">
+      <table class="table tablaTareas">
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Inicio del Evento</th>
+            <th>Fin del Evento</th>
+            <th>Descripción</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tbody>
+            {% for evento in lista %}
+            <tr>
+              <form action="/click_modificarEv" method="POST">
+              <input type="hidden" name="idEvento_input" value="{{evento.idEvento}}">
+              <td><input type="hidden" name="titleEvento_input" value="{{evento.titleEvento}}"> {{evento.titleEvento}}</td>
+              <td><input type="hidden" name="fechaInicio_input" value="{{evento.fechaI}}">{{evento.fechaInicio}}</td>
+              <td><input type="hidden" name="fechaFin_input" value="{{evento.fechaF}}">{{evento.fechaFin}}</td>
+              <td><input type="hidden" name="descriptionEvento_input" value="{{evento.descriptionEvento}}">{{evento.descriptionEvento}}</td>
+              <td><input type="submit" name="modificar" value="Modificar" class="btn btn-primary"></td>
+              <td><input type="submit" name="eliminar" value="Eliminar" class="btn btn-danger"></td>
+              </form>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </thead>
+      </table>
+    </div>
+  
+</body>
+</html>
